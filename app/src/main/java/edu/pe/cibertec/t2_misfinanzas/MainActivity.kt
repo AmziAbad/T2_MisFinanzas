@@ -11,37 +11,51 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import edu.pe.cibertec.t2_misfinanzas.ui.screens.GastosScreen
+import edu.pe.cibertec.t2_misfinanzas.ui.screens.RegistroGastoScreen
 import edu.pe.cibertec.t2_misfinanzas.ui.theme.T2_MisFinanzasTheme
+
+object Destinations {
+    const val GASTOS_LISTA = "gastos_lista"
+    const val REGISTRO_GASTO = "registro_gasto"
+}
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             T2_MisFinanzasTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                AppNavigation()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun AppNavigation() {
+    val navController = rememberNavController()
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    T2_MisFinanzasTheme {
-        Greeting("Android")
+    NavHost(
+        navController = navController,
+        startDestination = Destinations.GASTOS_LISTA
+    ) {
+        composable (Destinations.GASTOS_LISTA) {
+            GastosScreen(
+                onNavigateToRegistro = {
+                    navController.navigate(Destinations.REGISTRO_GASTO)
+                }
+            )
+        }
+
+        composable(Destinations.REGISTRO_GASTO) {
+            RegistroGastoScreen (
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
     }
 }
