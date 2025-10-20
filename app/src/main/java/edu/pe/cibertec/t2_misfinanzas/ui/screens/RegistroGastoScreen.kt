@@ -116,7 +116,7 @@ fun RegistroGastoScreen(
 
             OutlinedTextField(
                 value = dateFormatter.format(Date(fechaTimestamp)),
-                onValueChange = { /* Deshabilitado */ },
+                onValueChange = {  },
                 label = { Text("Fecha") },
                 readOnly = true,
                 trailingIcon = {

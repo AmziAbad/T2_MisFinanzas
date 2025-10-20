@@ -19,5 +19,5 @@ data class CategoriaEntity(
     val colorHex: String,
 
     @ColumnInfo(name = "limite_mensual")
-    val limiteMensual: Double // Ej: 800.00
+    val limiteMensual: Double
 )

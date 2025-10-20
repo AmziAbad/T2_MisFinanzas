@@ -9,15 +9,8 @@ class CategoriaRepository(private val categoriaDao: CategoriaDao) {
         return categoriaDao.getAllCategorias()
     }
 
-    suspend fun insertCategoria(categoria: CategoriaEntity) {
-        categoriaDao.insertCategoria(categoria)
-    }
-
     suspend fun getCategoriaById(categoriaId: Int): CategoriaEntity? {
         return categoriaDao.getCategoriaById(categoriaId)
-    }
-    suspend fun countCategorias(): Int {
-        return categoriaDao.getCount()
     }
 
 }
